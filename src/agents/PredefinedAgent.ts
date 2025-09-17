@@ -5,29 +5,17 @@
 import { Agent, AgentAction, AgentConfig } from '../types/Agent';
 import { WorldState, AgentState } from '../types/Grid';
 import { AgentType, Direction, CellType } from '../types/Common';
+import { BaseAgent } from './BaseAgent';
 
 /**
  * Base class for predefined agents
  */
-abstract class BasePredefinedAgent implements Agent {
-  public readonly id: string;
-  public readonly name: string;
-  public readonly type = AgentType.Predefined;
-
+abstract class BasePredefinedAgent extends BaseAgent {
   constructor(id: string, name?: string) {
-    this.id = id;
-    this.name = name || this.constructor.name;
+    super(id, name || 'Predefined Agent', AgentType.Predefined);
   }
 
   abstract step(worldState: WorldState, agentState: AgentState): AgentAction;
-
-  initialize?(config: AgentConfig): void {
-    // Default implementation - can be overridden
-  }
-
-  cleanup?(): void {
-    // Default implementation - can be overridden
-  }
 }
 
 /**
@@ -51,29 +39,64 @@ export class RandomWalkerAgent extends BasePredefinedAgent {
 
   private getAvailableDirections(worldState: WorldState, agentState: AgentState): Direction[] {
     const directions: Direction[] = [];
-    const { x, y } = agentState.position;
-    const { width, height } = worldState.dimensions;
+    
+    try {
+      const { x, y } = agentState.position;
+      const { width, height } = worldState.dimensions;
 
-    // Check all four cardinal directions
-    if (y > 0 && this.canMoveTo(worldState, x, y - 1)) {
-      directions.push(Direction.North);
-    }
-    if (y < height - 1 && this.canMoveTo(worldState, x, y + 1)) {
-      directions.push(Direction.South);
-    }
-    if (x > 0 && this.canMoveTo(worldState, x - 1, y)) {
-      directions.push(Direction.West);
-    }
-    if (x < width - 1 && this.canMoveTo(worldState, x + 1, y)) {
-      directions.push(Direction.East);
+      if (!worldState.grid || !Array.isArray(worldState.grid)) {
+        return directions; // Return empty array for invalid grid
+      }
+
+      // Check all four cardinal directions
+      if (y > 0 && this.canMoveTo(worldState, x, y - 1)) {
+        directions.push(Direction.North);
+      }
+      if (y < height - 1 && this.canMoveTo(worldState, x, y + 1)) {
+        directions.push(Direction.South);
+      }
+      if (x > 0 && this.canMoveTo(worldState, x - 1, y)) {
+        directions.push(Direction.West);
+      }
+      if (x < width - 1 && this.canMoveTo(worldState, x + 1, y)) {
+        directions.push(Direction.East);
+      }
+    } catch (error) {
+      // Return empty directions array if there's any error
+      console.warn('Error getting available directions:', error);
     }
 
     return directions;
   }
 
   private canMoveTo(worldState: WorldState, x: number, y: number): boolean {
-    const cell = worldState.grid[y][x];
-    return cell.type !== CellType.Wall && !cell.occupant;
+    try {
+      if (!worldState.grid || !Array.isArray(worldState.grid)) {
+        return false;
+      }
+      
+      if (y < 0 || y >= worldState.grid.length) {
+        return false;
+      }
+      
+      if (!worldState.grid[y] || !Array.isArray(worldState.grid[y])) {
+        return false;
+      }
+      
+      if (x < 0 || x >= worldState.grid[y].length) {
+        return false;
+      }
+      
+      const cell = worldState.grid[y][x];
+      if (!cell) {
+        return false;
+      }
+      
+      return cell.type !== CellType.Wall && !cell.occupant;
+    } catch (error) {
+      console.warn('Error checking if can move to position:', error);
+      return false;
+    }
   }
 }
 
@@ -113,16 +136,29 @@ export class GoalSeekerAgent extends BasePredefinedAgent {
     let nearestGoal: { x: number; y: number } | null = null;
     let minDistance = Infinity;
 
-    for (let y = 0; y < worldState.dimensions.height; y++) {
-      for (let x = 0; x < worldState.dimensions.width; x++) {
-        if (worldState.grid[y][x].type === CellType.Goal) {
-          const distance = Math.abs(x - position.x) + Math.abs(y - position.y);
-          if (distance < minDistance) {
-            minDistance = distance;
-            nearestGoal = { x, y };
+    try {
+      if (!worldState.grid || !Array.isArray(worldState.grid)) {
+        return null;
+      }
+
+      for (let y = 0; y < worldState.dimensions.height; y++) {
+        if (!worldState.grid[y] || !Array.isArray(worldState.grid[y])) {
+          continue;
+        }
+        
+        for (let x = 0; x < worldState.dimensions.width; x++) {
+          const cell = worldState.grid[y][x];
+          if (cell && cell.type === CellType.Goal) {
+            const distance = Math.abs(x - position.x) + Math.abs(y - position.y);
+            if (distance < minDistance) {
+              minDistance = distance;
+              nearestGoal = { x, y };
+            }
           }
         }
       }
+    } catch (error) {
+      console.warn('Error finding nearest goal:', error);
     }
 
     return nearestGoal;
