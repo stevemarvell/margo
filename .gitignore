@@ -10,6 +10,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -32,3 +33,13 @@ yarn-error.log*
 
 # OS
 Thumbs.db
+
+# Kiro settings (may contain sensitive info)
+.kiro/settings/
+.kiro/specs/*/tasks.md
+
+# PWA assets (generated)
+/public/pwa-*.png
+/public/maskable-*.png
+/public/apple-touch-icon-*.png
+/public/favicon.ico
