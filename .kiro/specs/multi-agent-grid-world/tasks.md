@@ -23,7 +23,12 @@
   - Write BDD tests for grid rendering and interaction handling using React Testing Library
   - _Requirements: 1.1, 1.2, 6.4_
 
-- [ ] 4. Build simulation engine core
+- [x] 4. Build simulation engine core
+
+
+
+
+
   - Write BDD scenarios for simulation lifecycle behaviors (start, pause, step, reset)
   - Implement SimulationEngine class with step, play, pause, reset functionality
   - Add agent placement and movement logic within grid boundaries
@@ -31,10 +36,16 @@
   - Write BDD tests for simulation engine operations and state transitions
   - _Requirements: 6.1, 6.2, 6.4_
 
+
+
+
 - [ ] 5. Implement predefined agent system
   - Write BDD scenarios for different agent behaviors (random walker, goal seeker, etc.)
   - Create base predefined agent classes with different behaviors
   - Implement agent selection and instantiation system
+
+
+
   - Add agent behavior validation and error handling
   - Write BDD tests for predefined agent behaviors and interactions using Given-When-Then scenarios
   - _Requirements: 3.1_
