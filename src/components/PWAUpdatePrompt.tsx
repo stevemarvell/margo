@@ -13,7 +13,7 @@ const PWAUpdatePrompt: React.FC = () => {
   const [pwaState, setPwaState] = React.useState({
     offlineReady: false,
     needRefresh: false,
-    updateServiceWorker: () => window.location.reload()
+    updateServiceWorker: (reloadPage?: boolean) => window.location.reload()
   });
 
   React.useEffect(() => {
