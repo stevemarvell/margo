@@ -142,13 +142,82 @@ The app uses **Vite PWA** with auto-generated assets:
 
 ## 🤝 Contributing
 
+### Branch Naming Convention
+
+We follow a structured branch naming convention to keep the project organized and make it easy to understand what each branch does.
+
+#### Format
+```
+<type>/<description>[-<issue-number>]
+```
+
+#### Branch Types
+
+| Type | Purpose | Example |
+|------|---------|---------|
+| `feature/` | New functionality or enhancements | `feature/agent-pathfinding` |
+| `fix/` | Bug fixes and corrections | `fix/grid-rendering-performance` |
+| `hotfix/` | Urgent production fixes | `hotfix/critical-memory-leak` |
+| `refactor/` | Code improvements without functional changes | `refactor/agent-class-hierarchy` |
+| `docs/` | Documentation updates | `docs/api-reference-update` |
+| `chore/` | Maintenance, CI/CD, tooling | `chore/update-dependencies` |
+| `experiment/` | Experimental or proof-of-concept work | `experiment/webgl-rendering` |
+
+#### Examples for This Project
+
+```bash
+# Grid World Features
+feature/mobile-pwa-setup
+feature/wasm-agent-support
+feature/grid-simulation-controls
+
+# Bug Fixes
+fix/agent-collision-detection
+fix/mobile-touch-responsiveness-42
+
+# Documentation
+docs/installation-guide-improvements
+docs/branch-naming-convention
+
+# Maintenance
+chore/setup-github-actions
+chore/add-eslint-configuration
+```
+
+#### Naming Guidelines
+
+- Use **kebab-case** (lowercase with hyphens)
+- Be descriptive but concise (2-5 words)
+- Focus on **what** you're doing, not **how**
+- Include issue numbers when relevant: `-123`
+- Avoid abbreviations unless widely understood
+
+#### Post-Merge Workflow
+
+After your PR is merged, clean up your local repository:
+
+```bash
+# Switch back to main and pull latest changes
+git checkout main
+git pull origin main
+
+# Delete the merged feature branch
+git branch -d feature/your-branch-name
+
+# Verify clean state
+git status
+```
+
+### Development Process
+
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
+2. Create a feature branch following our naming convention
 3. Make your changes and add tests
 4. Ensure all tests pass: `npm test`
-5. Commit your changes: `git commit -m 'Add amazing feature'`
-6. Push to the branch: `git push origin feature/amazing-feature`
-7. Open a Pull Request
+5. Commit your changes with clear messages
+6. Push to your branch: `git push origin feature/your-branch`
+7. Open a Pull Request with a descriptive title
+8. After merge, follow the post-merge cleanup workflow
 
 ## 📄 License
 
