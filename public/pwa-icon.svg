@@ -1,0 +1,32 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="64" fill="#3880ff"/>
+  
+  <!-- Grid pattern -->
+  <g stroke="#ffffff" stroke-width="2" opacity="0.3">
+    <line x1="128" y1="128" x2="128" y2="384"/>
+    <line x1="192" y1="128" x2="192" y2="384"/>
+    <line x1="256" y1="128" x2="256" y2="384"/>
+    <line x1="320" y1="128" x2="320" y2="384"/>
+    <line x1="384" y1="128" x2="384" y2="384"/>
+    
+    <line x1="128" y1="128" x2="384" y2="128"/>
+    <line x1="128" y1="192" x2="384" y2="192"/>
+    <line x1="128" y1="256" x2="384" y2="256"/>
+    <line x1="128" y1="320" x2="384" y2="320"/>
+    <line x1="128" y1="384" x2="384" y2="384"/>
+  </g>
+  
+  <!-- Agent dots -->
+  <circle cx="160" cy="160" r="12" fill="#ffc409"/>
+  <circle cx="288" cy="224" r="12" fill="#2dd36f"/>
+  <circle cx="352" cy="352" r="12" fill="#eb445a"/>
+  
+  <!-- Goal square -->
+  <rect x="308" y="148" width="24" height="24" fill="#2dd36f" opacity="0.7"/>
+  
+  <!-- Title -->
+  <text x="256" y="80" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="32" font-weight="bold">
+    Grid World
+  </text>
+</svg>

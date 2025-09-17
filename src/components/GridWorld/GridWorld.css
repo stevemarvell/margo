@@ -1,0 +1,51 @@
+.grid-world-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--ion-color-step-50);
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.grid-world-canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  touch-action: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.grid-world-canvas:focus {
+  outline: 2px solid var(--ion-color-primary);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .grid-world-canvas:hover {
+    cursor: crosshair;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid-world-canvas {
+    transition: none;
+  }
+}
+
+.grid-world-container.pan-zoom-enabled .grid-world-canvas {
+  cursor: grab;
+}
+
+.grid-world-container.pan-zoom-enabled .grid-world-canvas:active {
+  cursor: grabbing;
+}
+
+.grid-world-container.fullscreen .grid-world-canvas {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+}
